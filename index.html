@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jimmy — Software Engineer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #f5f4f0;
+      --surface: #eeecea;
+      --border: #d8d5cf;
+      --text: #1a1917;
+      --muted: #7a7670;
+      --accent: #2d2d2d;
+      --tag-bg: #e3e0d9;
+      --pill-blue: #dce8f5;
+      --pill-blue-text: #1a4a7a;
+      --pill-green: #d8edd8;
+      --pill-green-text: #1a5c1a;
+      --pill-amber: #f5e8d0;
+      --pill-amber-text: #7a4a10;
+      --serif: 'Lora', Georgia, serif;
+      --sans: 'DM Sans', sans-serif;
+      --mono: 'DM Mono', monospace;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      font-size: 15px;
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    /* NAV */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2rem;
+      height: 48px;
+    }
+
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 0;
+    }
+
+    .nav-name {
+      font-family: var(--serif);
+      font-size: 15px;
+      font-weight: 400;
+      color: var(--text);
+      text-decoration: none;
+      padding: 6px 12px 6px 0;
+      border-right: 1px solid var(--border);
+      margin-right: 4px;
+    }
+
+    .nav-links {
+      display: flex;
+      list-style: none;
+      gap: 0;
+    }
+
+    .nav-links a {
+      font-size: 13px;
+      color: var(--muted);
+      text-decoration: none;
+      padding: 6px 12px;
+      border-radius: 4px;
+      transition: color 0.15s, background 0.15s;
+    }
+
+    .nav-links a:hover { color: var(--text); background: var(--surface); }
+
+    .nav-right {
+      display: flex;
+      gap: 4px;
+    }
+
+    .nav-right a {
+      font-size: 13px;
+      color: var(--muted);
+      text-decoration: none;
+      padding: 6px 10px;
+      border-radius: 4px;
+      transition: color 0.15s, background 0.15s;
+    }
+
+    .nav-right a:hover { color: var(--text); background: var(--surface); }
+
+    /* LAYOUT */
+    .page {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      max-width: 1200px;
+      margin: 0 auto;
+      gap: 0;
+    }
+
+    /* LEFT COLUMN */
+    .left-col {
+      padding: 4rem 3rem 4rem 2rem;
+      border-right: 1px solid var(--border);
+      min-height: calc(100vh - 48px);
+    }
+
+    .intro {
+      font-family: var(--serif);
+      font-size: 28px;
+      line-height: 1.55;
+      color: var(--text);
+      max-width: 480px;
+      margin-bottom: 2.5rem;
+    }
+
+    .intro strong {
+      font-weight: 500;
+      color: var(--text);
+    }
+
+    .intro .highlight {
+      font-style: italic;
+      color: var(--muted);
+    }
+
+    .intro a {
+      color: var(--text);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      text-decoration-color: var(--border);
+      transition: text-decoration-color 0.2s;
+    }
+
+    .intro a:hover { text-decoration-color: var(--text); }
+
+    .bio-section {
+      margin-bottom: 2.5rem;
+    }
+
+    .bio-section p {
+      font-family: var(--serif);
+      font-size: 17px;
+      line-height: 1.75;
+      color: var(--muted);
+      margin-bottom: 1.2rem;
+    }
+
+    .bio-section p strong {
+      font-weight: 500;
+      color: var(--text);
+    }
+
+    /* SKILLS GRID */
+    .skills-block {
+      margin-top: 2.5rem;
+    }
+
+    .skills-block .label {
+      font-size: 11px;
+      font-family: var(--mono);
+      color: var(--muted);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .skills-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 10px;
+    }
+
+    .pill {
+      font-size: 12px;
+      font-family: var(--mono);
+      padding: 3px 10px;
+      border-radius: 100px;
+      white-space: nowrap;
+    }
+
+    .pill-blue { background: var(--pill-blue); color: var(--pill-blue-text); }
+    .pill-green { background: var(--pill-green); color: var(--pill-green-text); }
+    .pill-amber { background: var(--pill-amber); color: var(--pill-amber-text); }
+    .pill-neutral { background: var(--tag-bg); color: var(--muted); }
+
+    /* RIGHT COLUMN */
+    .right-col {
+      padding: 2rem 2rem 4rem 2rem;
+    }
+
+    /* CARDS */
+    .section-label {
+      font-size: 11px;
+      font-family: var(--mono);
+      color: var(--muted);
+      letter-spacing: 0.08em;
+      margin-bottom: 12px;
+      margin-top: 2rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.1rem 1.2rem;
+      margin-bottom: 10px;
+      transition: border-color 0.2s, transform 0.2s;
+      cursor: default;
+    }
+
+    .card:hover {
+      border-color: #b8b4ac;
+      transform: translateY(-1px);
+    }
+
+    .card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 6px;
+    }
+
+    .card-title {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text);
+    }
+
+    .card-desc {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 1px;
+    }
+
+    .card-date {
+      font-size: 11px;
+      font-family: var(--mono);
+      color: var(--muted);
+      white-space: nowrap;
+      padding-top: 2px;
+    }
+
+    .card-bullets {
+      list-style: none;
+      margin: 8px 0 10px;
+    }
+
+    .card-bullets li {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.6;
+      padding-left: 14px;
+      position: relative;
+      margin-bottom: 3px;
+    }
+
+    .card-bullets li::before {
+      content: '·';
+      position: absolute;
+      left: 2px;
+      color: var(--border);
+    }
+
+    .card-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      margin-top: 8px;
+    }
+
+    /* WORK CARD ACCENT */
+    .card-work {
+      border-left: 3px solid var(--border);
+      border-radius: 0 10px 10px 0;
+      padding-left: 1rem;
+    }
+
+    /* EDU CARD */
+    .edu-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1rem 1.2rem;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 10px;
+    }
+
+    .edu-dot {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--tag-bg);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--muted);
+      flex-shrink: 0;
+    }
+
+    .edu-info { flex: 1; }
+
+    .edu-name {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text);
+    }
+
+    .edu-sub {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    /* EXTRA */
+    .extra-block {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1rem 1.2rem;
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.7;
+      margin-bottom: 10px;
+    }
+
+    .extra-block strong { color: var(--text); font-weight: 500; }
+
+    /* LINK ARROW */
+    .arrow-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 12px;
+      font-family: var(--mono);
+      color: var(--muted);
+      text-decoration: none;
+      margin-top: 8px;
+      transition: color 0.15s;
+    }
+
+    .arrow-link:hover { color: var(--text); }
+    .arrow-link::after { content: '↗'; font-size: 11px; }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      .page { grid-template-columns: 1fr; }
+      .left-col { border-right: none; border-bottom: 1px solid var(--border); padding: 2rem 1.5rem; min-height: unset; }
+      .right-col { padding: 2rem 1.5rem; }
+      nav { padding: 0 1rem; }
+      .intro { font-size: 22px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-left">
+    <a class="nav-name" href="#">Jimmy</a>
+    <ul class="nav-links">
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#work">Work</a></li>
+      <li><a href="#skills">Skills</a></li>
+    </ul>
+  </div>
+  <div class="nav-right">
+    <a href="https://github.com/jmmyjam" target="_blank">GitHub</a>
+    <a href="https://www.linkedin.com/in/jmmy/" target="_blank">LinkedIn</a>
+    <a href="https://docs.google.com/document/d/11rm4LBQUwnsyPbdoJloZe_HuzApwF61fJEVOpHR57Us/edit?usp=sharing" target="_blank" class="cv-btn">CV</a>
+  </div>
+</nav>
+
+<div class="page">
+
+  <!-- LEFT -->
+  <div class="left-col">
+    <div class="intro">
+      Hey, I'm <strong>Jimmy</strong>. I'm a CS student at <a href="https://www.scu.edu" target="_blank">Santa Clara University</a> building software that solves <span class="highlight">real problems</span> for real people.
+    </div>
+
+    <div class="bio-section">
+      <p>
+        I like working across the full stack — from <strong>React frontends</strong> to <strong>FastAPI backends</strong> to bare-metal Arduino systems. I care about writing code that's clean, functional, and ships.
+      </p>
+      <p>
+        Outside of school I've built tools for scam detection, gym anxiety, and real estate management — and I taught a <strong>computer science course in Myanmar</strong> during the summer of 2024.
+      </p>
+      <p>
+        I speak English natively and have <strong>conversational Chinese</strong>. Currently looking for a <strong>full-time internship</strong>.
+      </p>
+    </div>
+
+    <div class="skills-block" id="skills">
+      <div class="label">Languages</div>
+      <div class="skills-row">
+        <span class="pill pill-blue">Java</span>
+        <span class="pill pill-blue">C / C++</span>
+        <span class="pill pill-blue">JavaScript</span>
+        <span class="pill pill-blue">Python</span>
+      </div>
+
+      <div class="label" style="margin-top:12px;">Frontend</div>
+      <div class="skills-row">
+        <span class="pill pill-green">React</span>
+        <span class="pill pill-green">Vite</span>
+        <span class="pill pill-green">HTML</span>
+        <span class="pill pill-green">CSS</span>
+        <span class="pill pill-green">EmailJS</span>
+      </div>
+
+      <div class="label" style="margin-top:12px;">Backend & Data</div>
+      <div class="skills-row">
+        <span class="pill pill-amber">FastAPI</span>
+        <span class="pill pill-amber">Express.js</span>
+        <span class="pill pill-amber">PostgreSQL</span>
+        <span class="pill pill-amber">Supabase</span>
+      </div>
+
+      <div class="label" style="margin-top:12px;">Tools & Platforms</div>
+      <div class="skills-row">
+        <span class="pill pill-neutral">Git</span>
+        <span class="pill pill-neutral">Netlify</span>
+        <span class="pill pill-neutral">Render</span>
+        <span class="pill pill-neutral">Arduino IDE</span>
+        <span class="pill pill-neutral">Tinkercad</span>
+        <span class="pill pill-neutral">QuickBooks</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT -->
+  <div class="right-col">
+
+    <div class="section-label" id="projects">EDUCATION</div>
+
+    <div class="edu-card">
+      <div class="edu-dot">SCU</div>
+      <div class="edu-info">
+        <div class="edu-name">Santa Clara University</div>
+        <div class="edu-sub">B.S. Computer Science &amp; Engineering &nbsp;&middot;&nbsp; Expected June 2029</div>
+      </div>
+    </div>
+
+    <div class="section-label" id="projects" style="margin-top:2rem;">PROJECTS</div>
+
+    <div class="card">
+      <div class="card-top">
+        <div>
+          <div class="card-title">GymShy</div>
+          <div class="card-desc">Gym anxiety companion for beginner fitness users</div>
+        </div>
+        <div class="card-date">Mar 2026 – present</div>
+      </div>
+      <ul class="card-bullets">
+        <li>Full-stack web app using React, Python, and PostgreSQL to help gym-anxious users navigate fitness confidently.</li>
+        <li>RESTful Python backend with PostgreSQL — schema, models, and API endpoints designed from scratch.</li>
+        <li>Component-based React frontend with an accessible, beginner-friendly UX.</li>
+      </ul>
+      <div class="card-pills">
+        <span class="pill pill-green">React</span>
+        <span class="pill pill-green">Vite</span>
+        <span class="pill pill-amber">FastAPI</span>
+        <span class="pill pill-amber">PostgreSQL</span>
+        <span class="pill pill-amber">Python</span>
+      </div>
+      <a class="arrow-link" href="https://github.com/jmmyjam/Gymmy" target="_blank">View on GitHub</a>
+    </div>
+
+    <div class="card">
+      <div class="card-top">
+        <div>
+          <div class="card-title">Robotics Showcase Project</div>
+          <div class="card-desc">Microcontroller-based robotic system with real-time control</div>
+        </div>
+        <div class="card-date">Jan 2026 – present</div>
+      </div>
+      <ul class="card-bullets">
+        <li>Designed and built an Arduino/C++ robotic system with real-time control logic.</li>
+        <li>Diagnosed signal noise, voltage instability, and logic errors across hardware-software boundary.</li>
+      </ul>
+      <div class="card-pills">
+        <span class="pill pill-amber">Arduino</span>
+        <span class="pill pill-amber">C++</span>
+        <span class="pill pill-amber">Tinkercad</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-top">
+        <div>
+          <div class="card-title">Unhooked — Hack 4 Humanity</div>
+          <div class="card-desc">AI scam detection tool to protect elderly users</div>
+        </div>
+        <div class="card-date">Feb – Mar 2026</div>
+      </div>
+      <ul class="card-bullets">
+        <li>Built an AI-powered phishing detection backend in JavaScript using OpenAI, OCR, and ElevenLabs.</li>
+        <li>Email ingestion via Postmark and Express.js API transforming forwarded emails into structured AI inputs.</li>
+      </ul>
+      <div class="card-pills">
+        <span class="pill pill-blue">JavaScript</span>
+        <span class="pill pill-blue">OpenAI</span>
+        <span class="pill pill-blue">Express.js</span>
+        <span class="pill pill-blue">Postmark</span>
+        <span class="pill pill-blue">ElevenLabs</span>
+      </div>
+    </div>
+
+    <div class="section-label" id="work" style="margin-top:2rem;">WORK</div>
+
+    <div class="card card-work">
+      <div class="card-top">
+        <div>
+          <div class="card-title">D&amp;C Lee Management</div>
+          <div class="card-desc">Rental Coordinator &nbsp;&middot;&nbsp; Daly City, CA</div>
+        </div>
+        <div class="card-date">Jan 2022 – present</div>
+      </div>
+      <ul class="card-bullets">
+        <li>Built and deployed a full-stack business website with React, Vite, and FastAPI — Supabase database, hosted on Netlify and Render.</li>
+        <li>Integrated EmailJS for contact form submissions and tenant communication workflows.</li>
+        <li>Managed rent collection and financial reconciliation using QuickBooks.</li>
+      </ul>
+      <div class="card-pills">
+        <span class="pill pill-green">React</span>
+        <span class="pill pill-amber">FastAPI</span>
+        <span class="pill pill-amber">Supabase</span>
+        <span class="pill pill-neutral">Netlify</span>
+        <span class="pill pill-neutral">Render</span>
+        <span class="pill pill-green">EmailJS</span>
+      </div>
+    </div>
+
+    <div class="card card-work">
+      <div class="card-top">
+        <div>
+          <div class="card-title">Tanforan Laundromat Inc</div>
+          <div class="card-desc">Laundromat Operator &nbsp;&middot;&nbsp; San Bruno, CA</div>
+        </div>
+        <div class="card-date">Jun 2021 – present</div>
+      </div>
+      <ul class="card-bullets">
+        <li>Managed daily revenue tracking and coordinated machine maintenance to minimize downtime.</li>
+      </ul>
+    </div>
+
+    <div class="section-label" style="margin-top:2rem;">MORE</div>
+
+    <div class="extra-block">
+      Led a <strong>computer science course in Myanmar</strong> during Summer 2024, teaching foundational programming to students abroad. Native English speaker with <strong>conversational Chinese</strong>. Available for a <strong>full-time internship</strong> with remaining academic terms following completion.
+    </div>
+
+  </div>
+</div>
+
+</body>
+</html>
